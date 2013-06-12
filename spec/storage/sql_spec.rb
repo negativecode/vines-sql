@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Vines::Storage::SQL do
+describe Vines::Storage::Sql do
   include StorageSpecs
 
   DB_FILE = "./xmpp_testcase.db"
@@ -21,7 +21,7 @@ describe Vines::Storage::SQL do
       :jid => 'full@wonderland.lit',
       :name => 'Tester',
       :password => BCrypt::Password.create('secret'),
-      :vcard => VCARD.to_xml)
+      :vcard => vcard.to_xml)
     full.contacts << Vines::Storage::Sql::Contact.new(
       :jid => 'contact1@wonderland.lit',
       :name => 'Contact1',
@@ -34,12 +34,12 @@ describe Vines::Storage::SQL do
       :subscription => 'both')
     full.save
 
-    fragment = Vines::Storage::Sql::Fragment.new(
+    partial = Vines::Storage::Sql::Fragment.new(
       :user => full,
       :root => 'characters',
       :namespace => 'urn:wonderland',
-      :xml => FRAGMENT.to_xml)
-    fragment.save
+      :xml => fragment.to_xml)
+    partial.save
   end
 
   after do
