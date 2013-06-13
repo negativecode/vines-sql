@@ -7,38 +7,37 @@ describe Vines::Storage::Sql do
   ActiveRecord::Migration.verbose = false
 
   before do
-    storage.create_schema(:force => true)
-    Vines::Storage::Sql::User.new(:jid => 'empty@wonderland.lit', :name => '', :password => '').save
-    Vines::Storage::Sql::User.new(:jid => 'no_password@wonderland.lit', :name => '', :password => '').save
-    Vines::Storage::Sql::User.new(:jid => 'clear_password@wonderland.lit', :name => '',
-      :password => 'secret').save
-    Vines::Storage::Sql::User.new(:jid => 'bcrypt_password@wonderland.lit', :name => '',
-      :password => BCrypt::Password.create('secret')).save
+    storage.create_schema(force: true)
+    Vines::Storage::Sql::User.new(jid: 'empty@wonderland.lit', name: '', password: '').save
+    Vines::Storage::Sql::User.new(jid: 'no_password@wonderland.lit', name: '', password: '').save
+    Vines::Storage::Sql::User.new(jid: 'clear_password@wonderland.lit', name: '', password: 'secret').save
+    Vines::Storage::Sql::User.new(jid: 'bcrypt_password@wonderland.lit', name: '',
+      password: BCrypt::Password.create('secret')).save
     groups = %w[Group1 Group2 Group3 Group4].map do |name|
       Vines::Storage::Sql::Group.find_or_create_by_name(name)
     end
     full = Vines::Storage::Sql::User.new(
-      :jid => 'full@wonderland.lit',
-      :name => 'Tester',
-      :password => BCrypt::Password.create('secret'),
-      :vcard => vcard.to_xml)
+      jid: 'full@wonderland.lit',
+      name: 'Tester',
+      password: BCrypt::Password.create('secret'),
+      vcard: vcard.to_xml)
     full.contacts << Vines::Storage::Sql::Contact.new(
-      :jid => 'contact1@wonderland.lit',
-      :name => 'Contact1',
-      :groups => groups[0, 2],
-      :subscription => 'both')
+      jid: 'contact1@wonderland.lit',
+      name: 'Contact1',
+      groups: groups[0, 2],
+      subscription: 'both')
     full.contacts << Vines::Storage::Sql::Contact.new(
-      :jid => 'contact2@wonderland.lit',
-      :name => 'Contact2',
-      :groups => groups[2, 2],
-      :subscription => 'both')
+      jid: 'contact2@wonderland.lit',
+      name: 'Contact2',
+      groups: groups[2, 2],
+      subscription: 'both')
     full.save
 
     partial = Vines::Storage::Sql::Fragment.new(
-      :user => full,
-      :root => 'characters',
-      :namespace => 'urn:wonderland',
-      :xml => fragment.to_xml)
+      user: full,
+      root: 'characters',
+      namespace: 'urn:wonderland',
+      xml: fragment.to_xml)
     partial.save
   end
 
