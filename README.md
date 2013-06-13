@@ -14,6 +14,23 @@ $ vines init wonderland.lit
 $ cd wonderland.lit && vines start
 ```
 
+## Configuration
+
+Add the following configuration block to a virtual host definition in
+the server's `conf/config.rb` file.
+
+```ruby
+storage 'sql' do
+  adapter 'postgresql'
+  host 'localhost'
+  port 5432
+  database 'xmpp'
+  username ''
+  password ''
+  pool 5
+end
+```
+
 ## Dependencies
 
 Vines requires Ruby 1.9.3 or better. Instructions for installing the
