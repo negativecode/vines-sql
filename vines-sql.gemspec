@@ -17,8 +17,8 @@ Gem::Specification.new do |s|
   s.add_dependency 'vines', '>= 0.4.5'
 
   s.add_development_dependency 'minitest', '~> 4.7.4'
-  s.add_development_dependency 'sqlite3'
   s.add_development_dependency 'rake', '~> 10.1.0'
+  s.add_development_dependency 'sqlite3', '~> 1.3.7'
 
   s.required_ruby_version = '>= 1.9.3'
 end
